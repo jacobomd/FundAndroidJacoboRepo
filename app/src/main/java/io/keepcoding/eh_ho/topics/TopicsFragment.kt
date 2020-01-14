@@ -4,6 +4,7 @@ package io.keepcoding.eh_ho.topics
 import android.content.Context
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -32,7 +33,9 @@ class TopicsFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
-        adapter = TopicsAdapter{}
+        adapter = TopicsAdapter{
+            goToPosts(it)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
@@ -136,6 +139,7 @@ class TopicsFragment : Fragment() {
 
     private fun goToPosts(it: Topic) {
         listener?.onTopicSelected(it)
+
     }
 
     interface TopicsInteractionListener {

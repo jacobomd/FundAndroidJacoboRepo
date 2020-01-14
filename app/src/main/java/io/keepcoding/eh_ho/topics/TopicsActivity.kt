@@ -3,13 +3,13 @@ package io.keepcoding.eh_ho.topics
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import io.keepcoding.eh_ho.*
 import io.keepcoding.eh_ho.data.Topic
-import io.keepcoding.eh_ho.data.TopicsRepo
 import io.keepcoding.eh_ho.data.UserRepo
 import io.keepcoding.eh_ho.login.LoginActivity
-import kotlinx.android.synthetic.main.activity_topics.*
+import io.keepcoding.eh_ho.posts.EXTRA_TOPIC_ID
+import io.keepcoding.eh_ho.posts.EXTRA_TOPIC_TITLE
+import io.keepcoding.eh_ho.posts.PostsActivity
 
 const val TRANSACTION_CREATE_TOPIC = "create_topic"
 
@@ -34,6 +34,7 @@ class TopicsActivity : AppCompatActivity(), TopicsFragment.TopicsInteractionList
         val intent = Intent(this, PostsActivity::class.java)
 
         intent.putExtra(EXTRA_TOPIC_ID, topic.id)
+        intent.putExtra(EXTRA_TOPIC_TITLE, topic.title)
 
         startActivity(intent)
     }

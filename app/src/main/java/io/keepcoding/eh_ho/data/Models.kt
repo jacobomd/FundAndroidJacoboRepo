@@ -1,7 +1,9 @@
 package io.keepcoding.eh_ho.data
 
+
 import org.json.JSONObject
 import java.text.SimpleDateFormat
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 data class Topic(
@@ -77,5 +79,64 @@ data class Topic(
         if (minutes > 0) return TimeOffset(minutes.toInt(), Calendar.MINUTE)
 
         return  TimeOffset(0, Calendar.MINUTE)
+    }
+}
+
+data class Post(
+    val id: String = UUID.randomUUID().toString(),
+    val username: String,
+    val cooked: String,
+    val createdAt: Date = Date()
+
+) {
+    companion object {
+
+
+        fun parsePosts(response: JSONObject): List<Post> {
+            val jsonPosts = response.getJSONObject("post_stream")
+                .getJSONArray("posts")
+
+            val posts = mutableListOf<Post>()
+
+
+            for (i in 0 until jsonPosts.length()) {
+                val parsedPost = parsePost(jsonPosts.getJSONObject(i))
+                posts.add(parsedPost)
+            }
+
+            return posts
+        }
+
+        private fun parsePost(jsonObject: JSONObject): Post {
+            val date = jsonObject.getString("created_at")
+                .replace("Z", "+0000")
+
+            val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", Locale.getDefault())
+            val dateFormatted = dateFormat.parse(date) ?: Date()
+
+
+            return Post(
+                jsonObject.getInt("id").toString(),
+                jsonObject.getString("username"),
+                jsonObject.getString("cooked"),
+                dateFormatted
+
+            )
+        }
+
+       private fun convertDateFormater(date: String) : Date {
+
+            var dateFormatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+           dateFormatter.timeZone = TimeZone.getTimeZone("UTC") as TimeZone
+            val date1 = dateFormatter.parse(date)
+
+            dateFormatter =  SimpleDateFormat("MMM dd")
+           dateFormatter.timeZone = TimeZone.getTimeZone("UTC") as TimeZone
+            val result = dateFormatter.format(date1)
+           val resultado = dateFormatter.parse(result)
+
+            return resultado
+
+        }
     }
 }

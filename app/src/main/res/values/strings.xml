@@ -31,6 +31,11 @@
     <string name="label_default_error">Oops something bad hapenned</string>
     <string name="label_retry">RETRY</string>
     <string name="label_create_topic">Create Topic</string>
+    <string name="label_author_topic">Author :</string>
+    <string name="label_content_post">Content post :</string>
+    <string name="label_created_at">Created at :</string>
+    <string name="button_create_post">Create post</string>
+    <string name="menu_send_post">Send</string>
 
     <plurals name="years">
         <item quantity="one">%d year</item>

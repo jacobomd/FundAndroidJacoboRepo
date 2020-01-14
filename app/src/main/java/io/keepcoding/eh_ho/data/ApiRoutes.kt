@@ -30,6 +30,12 @@ object ApiRoutes {
             .build()
             .toString()
 
+    fun getPosts(idTopic: Int) =
+        uriBuilder()
+            .appendPath("t")
+            .appendPath("${idTopic}.json")
+            .build()
+            .toString()
 
     private fun uriBuilder() =
         Uri.Builder()

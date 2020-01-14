@@ -11,7 +11,10 @@ import io.keepcoding.eh_ho.R
 import io.keepcoding.eh_ho.data.CreateTopicModel
 import io.keepcoding.eh_ho.data.RequestError
 import io.keepcoding.eh_ho.data.TopicsRepo
+import io.keepcoding.eh_ho.posts.EXTRA_TOPIC_TITLE
+import kotlinx.android.synthetic.main.fragment_create_post.*
 import kotlinx.android.synthetic.main.fragment_create_topic.*
+import kotlinx.android.synthetic.main.fragment_create_topic.parentLayout
 
 const val TAG_LOADING_DIALOG = "Loading_dialog"
 class CreateTopicFragment : Fragment () {
@@ -40,6 +43,8 @@ class CreateTopicFragment : Fragment () {
         return inflater.inflate(R.layout.fragment_create_topic, container, false)
 
     }
+
+
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         inflater?.inflate(R.menu.menu_create_topic, menu)
