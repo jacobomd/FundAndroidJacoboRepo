@@ -3,13 +3,22 @@ package io.keepcoding.eh_ho.posts
 
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.google.android.material.snackbar.Snackbar
 
 import io.keepcoding.eh_ho.R
+import io.keepcoding.eh_ho.data.CreatePostModel
+import io.keepcoding.eh_ho.data.PostsRepo
+import io.keepcoding.eh_ho.data.RequestError
 import kotlinx.android.synthetic.main.fragment_create_post.*
+import kotlinx.android.synthetic.main.fragment_create_post.parentLayout
+
 
 
 class CreatePostFragment : Fragment() {
+
+    var topicId: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,6 +37,7 @@ class CreatePostFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        topicId= arguments?.getString(EXTRA_TOPIC_ID)
         setHasOptionsMenu(true)
     }
 
@@ -37,12 +47,42 @@ class CreatePostFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        return super.onOptionsItemSelected(item)
 
         when (item?.itemId) {
-            //R.id.menu_button_send_post ->
+            R.id.menu_button_send_post -> postPost()
         }
+        return super.onOptionsItemSelected(item)
+
     }
 
 
+    private fun postPost() {
+        val model = CreatePostModel(
+            editPost.text.toString(),
+            topicId.toString().toInt()
+        )
+        context?.let {
+            PostsRepo.createPost(
+                it,
+                model,
+                {
+                    Toast.makeText(context, "creacion exitosaaaaaa", Toast.LENGTH_LONG).show()
+                },
+                {
+                    handleError(it)
+                }
+            )
+        }
+    }
+
+    private fun handleError(requestError: RequestError) {
+        val message = if (requestError.messageId != null)
+            getString(requestError.messageId)
+        else if (requestError.message != null)
+            requestError.message
+        else
+            getString(R.string.error_request_default)
+
+        Snackbar.make(parentLayout, message, Snackbar.LENGTH_LONG).show()
+    }
 }

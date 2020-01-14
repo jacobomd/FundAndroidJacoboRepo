@@ -15,12 +15,13 @@ const val EXTRA_TOPIC_TITLE = "topic_title"
 class PostsActivity : AppCompatActivity(), PostsFragment.PostsInteractionListener {
 
     var topicTitle : String? = null
+    var topicId : String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_posts)
 
-        val topicId = intent.getStringExtra(EXTRA_TOPIC_ID)
+        topicId = intent.getStringExtra(EXTRA_TOPIC_ID)
         topicTitle = intent.getStringExtra(EXTRA_TOPIC_TITLE)
 
         val args = Bundle()
@@ -29,7 +30,7 @@ class PostsActivity : AppCompatActivity(), PostsFragment.PostsInteractionListene
         val postsFragment = PostsFragment()
         postsFragment.arguments = args
 
-        if (topicId !=null && topicId.isNotEmpty()) {
+        if (topicId !=null ) {
            if (savedInstanceState == null){
                supportFragmentManager.beginTransaction()
                    .add(R.id.fragmentContainer, postsFragment)
@@ -46,6 +47,7 @@ class PostsActivity : AppCompatActivity(), PostsFragment.PostsInteractionListene
 
         val args = Bundle()
         args.putString(EXTRA_TOPIC_TITLE, topicTitle)
+        args.putString(EXTRA_TOPIC_ID, topicId)
 
 
         val createPostFragment = CreatePostFragment()
