@@ -10,9 +10,10 @@ import java.lang.IllegalArgumentException
 
 const val EXTRA_TOPIC_ID = "topic_id"
 const val EXTRA_TOPIC_TITLE = "topic_title"
+const val TRANSACTION_CREATE_POST = "create_post"
 
+class PostsActivity : AppCompatActivity(), PostsFragment.PostsInteractionListener, CreatePostFragment.CreatePostInteractionListener {
 
-class PostsActivity : AppCompatActivity(), PostsFragment.PostsInteractionListener {
 
     var topicTitle : String? = null
     var topicId : String? = null
@@ -55,6 +56,11 @@ class PostsActivity : AppCompatActivity(), PostsFragment.PostsInteractionListene
 
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragmentContainer, createPostFragment)
+            .addToBackStack(TRANSACTION_CREATE_POST)
             .commit()
+    }
+
+    override fun onPostCreated() {
+        supportFragmentManager.popBackStack()
     }
 }

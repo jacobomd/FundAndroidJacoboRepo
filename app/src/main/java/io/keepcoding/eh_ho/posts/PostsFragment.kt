@@ -69,17 +69,33 @@ class PostsFragment : Fragment() {
 
     private fun loadPost(idTopic: Int) {
 
+        enableLoading(true)
+
         context?.let {
             PostsRepo.getPosts(
                 it,
                 idTopic,
                 {
+                    enableLoading(false)
                     adapter.setPosts(it)
                 },
                 {
+                    enableLoading(false)
                     handleRequestError(it)
                 }
             )
+        }
+    }
+
+    private fun enableLoading(enabled: Boolean) {
+        viewRetry.visibility = View.INVISIBLE
+
+        if (enabled) {
+            listPosts.visibility = View.INVISIBLE
+            viewLoading.visibility = View.VISIBLE
+        } else {
+            listPosts.visibility = View.VISIBLE
+            viewLoading.visibility = View.INVISIBLE
         }
     }
 

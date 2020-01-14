@@ -36,6 +36,7 @@
     <string name="label_created_at">Created at :</string>
     <string name="button_create_post">Create post</string>
     <string name="menu_send_post">Send</string>
+    <string name="label_create_post">Create post</string>
 
     <plurals name="years">
         <item quantity="one">%d year</item>

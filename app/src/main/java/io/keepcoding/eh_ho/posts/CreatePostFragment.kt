@@ -1,16 +1,19 @@
 package io.keepcoding.eh_ho.posts
 
 
+import android.content.Context
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
+import io.keepcoding.eh_ho.LoadingDialogFragment
 
 import io.keepcoding.eh_ho.R
 import io.keepcoding.eh_ho.data.CreatePostModel
 import io.keepcoding.eh_ho.data.PostsRepo
 import io.keepcoding.eh_ho.data.RequestError
+import io.keepcoding.eh_ho.topics.TAG_LOADING_DIALOG
 import kotlinx.android.synthetic.main.fragment_create_post.*
 import kotlinx.android.synthetic.main.fragment_create_post.parentLayout
 
@@ -19,6 +22,14 @@ import kotlinx.android.synthetic.main.fragment_create_post.parentLayout
 class CreatePostFragment : Fragment() {
 
     var topicId: String? = null
+    var listener: CreatePostInteractionListener? = null
+    lateinit var loadingDialogFragment: LoadingDialogFragment
+
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        if (context is CreatePostInteractionListener)
+            listener = context
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,6 +50,7 @@ class CreatePostFragment : Fragment() {
         super.onCreate(savedInstanceState)
         topicId= arguments?.getString(EXTRA_TOPIC_ID)
         setHasOptionsMenu(true)
+        loadingDialogFragment = LoadingDialogFragment.newInstance(getString(R.string.label_create_post))
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
@@ -49,12 +61,26 @@ class CreatePostFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
 
         when (item?.itemId) {
-            R.id.menu_button_send_post -> postPost()
+            R.id.menu_button_send_post -> createPost()
         }
         return super.onOptionsItemSelected(item)
 
     }
 
+    private fun enableLoadingDialog(enable: Boolean) {
+        if (enable)
+            loadingDialogFragment.show(childFragmentManager, TAG_LOADING_DIALOG)
+        else
+            loadingDialogFragment.dismiss()
+    }
+
+    private fun createPost() {
+        if (isFormValid()) {
+            postPost()
+        }
+        else
+            showErrors()
+    }
 
     private fun postPost() {
         val model = CreatePostModel(
@@ -62,13 +88,16 @@ class CreatePostFragment : Fragment() {
             topicId.toString().toInt()
         )
         context?.let {
+            enableLoadingDialog(true)
             PostsRepo.createPost(
                 it,
                 model,
                 {
-                    Toast.makeText(context, "creacion exitosaaaaaa", Toast.LENGTH_LONG).show()
+                    enableLoadingDialog(false)
+                    listener?.onPostCreated()
                 },
                 {
+                    enableLoadingDialog(false)
                     handleError(it)
                 }
             )
@@ -85,4 +114,17 @@ class CreatePostFragment : Fragment() {
 
         Snackbar.make(parentLayout, message, Snackbar.LENGTH_LONG).show()
     }
+
+    private fun showErrors() {
+        if (editPost.text?.isEmpty() == true)
+            editPost.error = getString(R.string.error_empty)
+    }
+
+    private fun isFormValid() =
+        editPost.text?.isNotEmpty() ?: false
+
+    interface CreatePostInteractionListener {
+        fun onPostCreated()
+    }
+
 }

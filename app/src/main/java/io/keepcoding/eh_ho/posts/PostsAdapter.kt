@@ -13,10 +13,9 @@ import java.util.*
 class PostsAdapter : RecyclerView.Adapter<PostsAdapter.PostHolder>() {
 
     private val posts = mutableListOf<Post>()
-    private val listener : ((View) -> Unit) = {
+    /*private val listener : ((View) -> Unit) = {
         val post = it.tag as Topic
-        //topicClickListener?.invoke(topic)
-    }
+    }*/
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostHolder {
 
@@ -32,7 +31,7 @@ class PostsAdapter : RecyclerView.Adapter<PostsAdapter.PostHolder>() {
     override fun onBindViewHolder(holder: PostHolder, position: Int) {
         val post = posts[position]
         holder.post= post
-        holder.itemView.setOnClickListener (listener)
+        //holder.itemView.setOnClickListener (listener)
     }
 
     fun setPosts (posts: List<Post>) {
@@ -53,34 +52,12 @@ class PostsAdapter : RecyclerView.Adapter<PostsAdapter.PostHolder>() {
                         textViewTitle.text = field?.username
                         textViewContent.text = field?.cooked
                         textViewDate.text = field?.createdAt.toString()
-                        /*labelTitle.text = field?.title
-                        labelPosts.text = field?.posts.toString()
-                        labelViews.text = field?.views.toString()
-                        setTimeOffset(it.getTimeOffset())*/
+
                     }
 
                 }
 
-
             }
-
-        private fun setTimeOffset(timeOffset: Topic.TimeOffset) {
-            val quantityString = when (timeOffset.unit) {
-                Calendar.YEAR -> R.plurals.years
-                Calendar.MONTH -> R.plurals.months
-                Calendar.DAY_OF_MONTH -> R.plurals.days
-                Calendar.HOUR -> R.plurals.hours
-                else -> R.plurals.minutes
-            }
-
-            itemView.textViewDate.text =
-                if (timeOffset.amount != 0)
-                    itemView.context.resources.getQuantityString(quantityString, timeOffset.amount, timeOffset.amount)
-                else
-                    itemView.context.resources.getString(R.string.minutes_zero)
-
-        }
-
 
     }
 }
