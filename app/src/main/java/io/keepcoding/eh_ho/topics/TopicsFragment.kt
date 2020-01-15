@@ -4,13 +4,10 @@ package io.keepcoding.eh_ho.topics
 import android.content.Context
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.snackbar.Snackbar
-
 import io.keepcoding.eh_ho.R
 import io.keepcoding.eh_ho.data.RequestError
 import io.keepcoding.eh_ho.data.Topic
@@ -19,7 +16,7 @@ import kotlinx.android.synthetic.main.fragment_topics.*
 import kotlinx.android.synthetic.main.view_retry.*
 
 
-class TopicsFragment : Fragment() {
+class TopicsFragment : Fragment(){
 
     var listener: TopicsInteractionListener? = null
     lateinit var adapter: TopicsAdapter
@@ -70,6 +67,19 @@ class TopicsFragment : Fragment() {
 
         swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary)
         swipeRefreshLayout.setOnRefreshListener { loadTopics() }
+
+        /*listTopics.addOnScrollListener( object : RecyclerView.OnScrollListener() {
+
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+
+                if (newState == 1)
+                    buttonCreate.hide()
+                else
+                    buttonCreate.show()
+            }
+        })*/
+
     }
 
     override fun onResume() {
@@ -154,3 +164,7 @@ class TopicsFragment : Fragment() {
     }
 
 }
+
+
+
+
