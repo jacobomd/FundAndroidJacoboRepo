@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.snackbar.Snackbar
 
 import io.keepcoding.eh_ho.R
@@ -66,6 +67,9 @@ class TopicsFragment : Fragment() {
         buttonRetry.setOnClickListener {
             loadTopics()
         }
+
+        swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary)
+        swipeRefreshLayout.setOnRefreshListener { loadTopics() }
     }
 
     override fun onResume() {
@@ -92,6 +96,7 @@ class TopicsFragment : Fragment() {
                 {
                     enableLoading(false)
                     adapter.setTopics(it)
+                    swipeRefreshLayout.isRefreshing = false
                 },
                 {
                     enableLoading(false)

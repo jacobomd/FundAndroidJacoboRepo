@@ -14,6 +14,7 @@ import io.keepcoding.eh_ho.data.RequestError
 import kotlinx.android.synthetic.main.fragment_posts.*
 import kotlinx.android.synthetic.main.fragment_posts.parentLayout
 import kotlinx.android.synthetic.main.fragment_posts.viewRetry
+import kotlinx.android.synthetic.main.view_retry.*
 
 
 class PostsFragment : Fragment() {
@@ -56,7 +57,18 @@ class PostsFragment : Fragment() {
         listPosts.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         listPosts.adapter = adapter
 
-        topicId?.let { loadPost(it) }
+        swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary)
+
+        topicId?.let {
+            loadPost(it)
+            buttonRetry.setOnClickListener {
+                loadPost(topicId)
+            }
+            swipeRefreshLayout.setOnRefreshListener {
+                loadPost(topicId)
+            }
+        }
+
 
     }
 
@@ -78,6 +90,7 @@ class PostsFragment : Fragment() {
                 {
                     enableLoading(false)
                     adapter.setPosts(it)
+                    swipeRefreshLayout.isRefreshing = false
                 },
                 {
                     enableLoading(false)
@@ -101,7 +114,8 @@ class PostsFragment : Fragment() {
 
     private fun handleRequestError(requestError: RequestError) {
 
-
+        listPosts.visibility = View.INVISIBLE
+        viewRetry.visibility = View.VISIBLE
 
         val message = if (requestError.messageId != null)
             getString(requestError.messageId)
