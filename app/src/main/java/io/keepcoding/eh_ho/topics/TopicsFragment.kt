@@ -68,6 +68,9 @@ class TopicsFragment : Fragment(){
         swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary)
         swipeRefreshLayout.setOnRefreshListener { loadTopics() }
 
+
+        // OPCION MAS SIMPLE PARA OCULTAR EL FLOATINBUTTONACTION AL HACER SCROLL
+
         /*listTopics.addOnScrollListener( object : RecyclerView.OnScrollListener() {
 
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
