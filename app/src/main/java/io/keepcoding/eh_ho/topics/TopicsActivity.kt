@@ -20,7 +20,6 @@ class TopicsActivity : AppCompatActivity(), TopicsFragment.TopicsInteractionList
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_topics)
-       // Log.d(TopicsActivity::class.java.simpleName, TopicsRepo.topics.toString())
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()

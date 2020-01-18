@@ -4,7 +4,6 @@ package io.keepcoding.eh_ho.posts
 import android.content.Context
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import io.keepcoding.eh_ho.LoadingDialogFragment

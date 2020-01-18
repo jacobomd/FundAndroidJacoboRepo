@@ -29,8 +29,6 @@ class LoginActivity : AppCompatActivity(),
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        //val button: Button = findViewById<AppCompatButton>(R.id.buttonLogin)
-        //button.setOnClickListener {login()}
 
         if (savedInstanceState == null) {
             checkSession()
@@ -63,8 +61,7 @@ class LoginActivity : AppCompatActivity(),
                 enableLoading(false)
                handleRequestError(it)
             })
-        //simulateLoadingTask()
-        //simulateLoading()
+
     }
 
     // Interface del fragment SignUpInteractionListener

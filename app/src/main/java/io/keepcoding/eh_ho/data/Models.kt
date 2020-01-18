@@ -86,7 +86,7 @@ data class Post(
     val id: String = UUID.randomUUID().toString(),
     val username: String,
     val cooked: String,
-    val createdAt: Date = Date()
+    val createdAt: String
 
 ) {
     companion object {
@@ -111,32 +111,31 @@ data class Post(
             val date = jsonObject.getString("created_at")
                 .replace("Z", "+0000")
 
-            val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", Locale.getDefault())
-            val dateFormatted = dateFormat.parse(date) ?: Date()
+            val dateFormatted = convertDate(date)
 
+            val content = jsonObject.getString("cooked")
+                .replace("<p>", "")
+                .replace("</p>", "")
 
             return Post(
                 jsonObject.getInt("id").toString(),
                 jsonObject.getString("username"),
-                jsonObject.getString("cooked"),
+                content,
                 dateFormatted
 
             )
         }
 
-       private fun convertDateFormater(date: String) : Date {
 
-            var dateFormatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
-           dateFormatter.timeZone = TimeZone.getTimeZone("UTC") as TimeZone
-            val date1 = dateFormatter.parse(date)
-
-            dateFormatter =  SimpleDateFormat("MMM dd")
-           dateFormatter.timeZone = TimeZone.getTimeZone("UTC") as TimeZone
-            val result = dateFormatter.format(date1)
-           val resultado = dateFormatter.parse(result)
-
-            return resultado
-
+        private fun convertDate(date: String): String {
+            val originalFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", Locale.getDefault())
+            val targetFormat = SimpleDateFormat("MMM dd, yyyy")
+            val dateResult = originalFormat.parse(date)
+            val formattedDate = targetFormat.format(dateResult)
+            return formattedDate
         }
+
+
+
     }
 }

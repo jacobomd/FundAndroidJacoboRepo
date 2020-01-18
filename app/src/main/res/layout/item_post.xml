@@ -15,15 +15,16 @@
         android:layout_margin="8dp">
 
 
-        <TextView
-            android:id="@+id/textView"
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageAutor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
-            android:text="@string/label_author_topic"
+            android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_person" />
 
         <TextView
             android:id="@+id/textViewTitle"
@@ -33,45 +34,33 @@
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
             android:hint="Nombre autor"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/label_content_post"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewTitle" />
+            app:layout_constraintBottom_toBottomOf="@+id/imageAutor"
+            app:layout_constraintStart_toEndOf="@+id/imageAutor"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textViewContent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/rounded_corner"
             android:hint="Content post"
-            android:minHeight="50dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
-        <TextView
-            android:id="@+id/textView5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTitle" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="16dp"
-            android:text="@string/label_created_at"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewContent" />
+            app:layout_constraintTop_toBottomOf="@id/textViewContent"
+            app:srcCompat="@drawable/ic_date" />
 
         <TextView
             android:id="@+id/textViewDate"
@@ -79,10 +68,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
             android:hint="Created at"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView5" />
+            app:layout_constraintBottom_toBottomOf="@+id/imageDate"
+            app:layout_constraintStart_toEndOf="@id/imageDate"
+            app:layout_constraintTop_toTopOf="@+id/imageDate" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -10,8 +10,7 @@ import androidx.core.view.ViewCompat
 
 
 
-class ScrollAwareFABBehavior (context: Context, attributeSet: AttributeSet) : FloatingActionButton.Behavior() {
-    // ...
+class ScrollLayoutBehavior (context: Context, attributeSet: AttributeSet) : FloatingActionButton.Behavior() {
 
     override fun onStartNestedScroll(
         coordinatorLayout: CoordinatorLayout,
@@ -55,5 +54,4 @@ class ScrollAwareFABBehavior (context: Context, attributeSet: AttributeSet) : Fl
         }
     }
 
-    // ...
 }

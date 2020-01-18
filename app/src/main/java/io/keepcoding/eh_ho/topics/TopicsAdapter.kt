@@ -61,7 +61,6 @@ class TopicsAdapter (
 
             }
 
-
         }
 
         private fun setTimeOffset(timeOffset: Topic.TimeOffset) {
@@ -80,7 +79,6 @@ class TopicsAdapter (
                     itemView.context.resources.getString(R.string.minutes_zero)
 
         }
-
 
     }
 

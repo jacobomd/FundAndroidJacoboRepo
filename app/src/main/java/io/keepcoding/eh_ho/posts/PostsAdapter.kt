@@ -6,9 +6,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import io.keepcoding.eh_ho.R
 import io.keepcoding.eh_ho.data.Post
-import io.keepcoding.eh_ho.data.Topic
 import kotlinx.android.synthetic.main.item_post.view.*
-import java.util.*
+
 
 class PostsAdapter : RecyclerView.Adapter<PostsAdapter.PostHolder>() {
 

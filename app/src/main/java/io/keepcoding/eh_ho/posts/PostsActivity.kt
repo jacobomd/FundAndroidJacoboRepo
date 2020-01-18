@@ -1,11 +1,8 @@
 package io.keepcoding.eh_ho.posts
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import io.keepcoding.eh_ho.R
-import kotlinx.android.synthetic.main.activity_posts.*
 import java.lang.IllegalArgumentException
 
 const val EXTRA_TOPIC_ID = "topic_id"
